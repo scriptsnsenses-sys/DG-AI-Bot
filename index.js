@@ -369,6 +369,7 @@ client.on('interactionCreate', async interaction => {
 
   // 3. /verify Command
   if (interaction.commandName === 'verify') {
+    const userId = interaction.user.id;
     await interaction.reply({ content: '✅ Check your DMs for the verification link!', ephemeral: true });
 
     try {
@@ -381,14 +382,55 @@ client.on('interactionCreate', async interaction => {
       const button = new ButtonBuilder()
         .setLabel('Click to Verify')
         .setStyle(ButtonStyle.Link)
-        .setURL(`https://verifier-bot.netlify.app/?user=${interaction.user.id}`);
+        // NO TRAILING SLASH on the domain
+        .setURL(`https://verifier-bot.netlify.app/?user=${userId}`);
 
       const row = new ActionRowBuilder().addComponents(button);
 
       await interaction.user.send({ embeds: [embed], components: [row] });
+
+      // Start polling the Worker /status endpoint
+      const workerUrl = 'https://dg-bot.scriptsnsenses.workers.dev';
+      const guild = interaction.guild;
+      const member = await guild.members.fetch(userId);
+      
+      let attempts = 0;
+      const maxAttempts = 40; // 40 attempts * 3 seconds = 2 minutes timeout
+
+      const pollInterval = setInterval(async () => {
+        attempts++;
+        try {
+          const res = await fetch(`${workerUrl}/status?user=${userId}`, {
+            headers: { 'x-bot-key': process.env.DISCORD_TOKEN }
+          });
+
+          if (res.status === 200) {
+            const data = await res.json();
+            clearInterval(pollInterval);
+            
+            if (data.success) {
+              // Give role
+              const role = guild.roles.cache.get(process.env.VERIFIED_ROLE_ID);
+              if (role) {
+                await member.roles.add(role);
+                await interaction.user.send("✅ You have been successfully verified and given the role!");
+              }
+            } else {
+              // Kick
+              await member.kick("Failed Turnstile verification (Bot).");
+              await interaction.user.send("❌ You were kicked for failing verification.");
+            }
+          } else if (attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+            await interaction.user.send("⌛ Verification timed out. Please try again.");
+          }
+        } catch (err) {
+          console.error("Polling error:", err);
+        }
+      }, 3000); // Poll every 3 seconds
+
     } catch (error) {
       console.error('Verify Error:', error);
-      // Follow up if DM failed
       await interaction.followUp({ content: "❌ I couldn't send you a DM. Please make sure your DMs are open.", ephemeral: true });
     }
   }
