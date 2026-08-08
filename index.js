@@ -381,7 +381,7 @@ client.on('interactionCreate', async interaction => {
       const button = new ButtonBuilder()
         .setLabel('Click to Verify')
         .setStyle(ButtonStyle.Link)
-        .setURL('https://verifier-bot.netlify.app/');
+        .setURL(`https://verifier-bot.netlify.app/?user=${interaction.user.id}`);
 
       const row = new ActionRowBuilder().addComponents(button);
 
