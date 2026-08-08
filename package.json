@@ -1,0 +1,27 @@
+{
+  "name": "dg-ai-discord-bot",
+  "version": "1.0.0",
+  "description": "The official Discord bot for DG AI, bringing AI, summaries, announcements, and verification to Discord.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "ai",
+    "dg-ai",
+    "dg-develops",
+    "cloudflare-workers"
+  ],
+  "author": "DG Develops",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
