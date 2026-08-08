@@ -431,7 +431,7 @@ client.on('interactionCreate', async interaction => {
 
     } catch (error) {
       console.error('Verify Error:', error);
-      await interaction.followUp({ content: "❌ I couldn't send you a DM. Please make sure your DMs are open.", ephemeral: true });
+      await interaction.followUp({ content: "❌ I could not send you a DM. Please make sure your DMs are open.", ephemeral: true });
     }
   }
 
@@ -451,7 +451,7 @@ client.on('interactionCreate', async interaction => {
       await interaction.reply({ content: `✅ Announcement successfully sent to ${targetChannel}.`, ephemeral: true });
     } catch (error) {
       console.error('Announce Error:', error);
-      await interaction.reply({ content: '❌ I couldn't send the announcement. Check my permissions in that channel.', ephemeral: true });
+      await interaction.reply({ content: '❌ I could not send the announcement. Check my permissions in that channel.', ephemeral: true });
     }
   }
 });
