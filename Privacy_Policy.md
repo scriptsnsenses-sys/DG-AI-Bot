@@ -40,5 +40,5 @@ As we do not maintain a permanent database of your personal data, there is no st
 ## 7. Changes to This Privacy Policy
 We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify users of significant changes by updating the "Last Updated" date at the top of this policy.
 
-8. Contact
-If you have questions or concerns about this Privacy Policy or how your data is handled, please contact us via the official DG Develops GitHub repository or Discord server.
+## 8. Contact
+If you have questions or concerns about this Privacy Policy or how your data is handled, please contact us via the official DG Develops Discord Server.
