@@ -1,5 +1,5 @@
-Terms and Conditions
-Last Updated: [09/08/2026]
+# Terms and Conditions
+**Last Updated: [09/08/2026]**
 
 Welcome to the DG AI Discord Bot (the "Bot"), part of the DG Develops ecosystem. By inviting the Bot to your Discord server or using any of its commands (including /ask, /summary, /verify, and /announce), you agree to the following Terms and Conditions. If you do not agree with these terms, please remove the Bot from your server and discontinue use.
 
